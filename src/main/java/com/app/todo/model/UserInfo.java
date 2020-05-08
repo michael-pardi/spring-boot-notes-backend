@@ -1,10 +1,15 @@
 package com.app.todo.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -19,61 +24,18 @@ public class UserInfo implements Serializable {
     @Column(name = "password", length = 800)
     private String password;
 
+    @Column(name = "email", length = 50)
+    private String email;
+
     @Column(name = "role", length = 50)
     private String role;
 
     @Column(name = "enabled")
     private short enabled;
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * @return the id
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public short getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(short enabled) {
-        this.enabled = enabled;
-    }
-
     @Override
     public String toString() {
-        return String.format("UserInfo [id=%s, userName=%s, password=%s, role=%s, enabled=%s]", id, userName, password,
+        return String.format("UserInfo [id=%s, userName=%s, password=%s, email=%s, role=%s, enabled=%s]", id, userName, password, email,
                 role, enabled);
     }
 
