@@ -1,7 +1,7 @@
 package com.app.todo.repository;
 
 import com.app.todo.model.UserInfo;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface UserDetailsRepository extends CrudRepository<UserInfo, String> {
+public interface UserDetailsRepository extends JpaRepository<UserInfo, String> {
     public UserInfo findByUserNameAndEnabled(String userName, short enabled);
 
     public List<UserInfo> findAllByEnabled(short enabled);

@@ -1,13 +1,22 @@
 package com.app.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+        allowGetters = true)
 @Getter
 @Setter
 public class UserInfo implements Serializable {
@@ -15,23 +24,38 @@ public class UserInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", length = 25)
+    @Column(name = "ID", length = 25)
     private Integer id;
 
-    @Column(name = "username", length = 50)
+    @NotNull
+    @Column(name = "USERNAME", length = 50)
     private String userName;
 
-    @Column(name = "password", length = 800)
+    @NotNull
+    @Column(name = "PASSWORD", length = 800)
     private String password;
 
-    @Column(name = "email", length = 50)
+    @NotNull
+    @Column(name = "EMAIL", length = 50)
     private String email;
 
-    @Column(name = "role", length = 50)
+    @NotNull
+    @Column(name = "ROLE", length = 50)
     private String role;
 
-    @Column(name = "enabled")
+    @NotNull
+    @Column(name = "ENABLED")
     private short enabled;
+
+    @Column(name="CREATED_ON", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(name="UPDATED_ON", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
 
     @Override
     public String toString() {
